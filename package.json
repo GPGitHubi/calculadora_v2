@@ -1,0 +1,26 @@
+{
+  "name": "projetobanco",
+  "version": "1.0.0",
+  "description": "esse projeto é web e vai usar mongod, express e ejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "web",
+    "javascript",
+    "mongodb",
+    "express"
+  ],
+  "author": "Alexssandro, Hugo, João, Matheus Oliveira e Pedro",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "mongodb-legacy": "^4.0.0",
+    "nodemon": "^3.1.0"
+  }
+}
