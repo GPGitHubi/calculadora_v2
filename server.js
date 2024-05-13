@@ -1,11 +1,13 @@
 const express = require("express")
 const app = express()
 const { MongoClient } = require("mongodb-legacy")
+const dotenv = require("dotenv")
+dotenv.config()
+const url = process.env.DATABASE_URL
 const ObjectId = require("mongodb-legacy").ObjectId
-const url = "mongodb+srv://projetodb:projetodb@cluster0.i14o7mp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-const dbClient = new MongoClient(url)
+const client = new MongoClient(url)
 //cria o banco de dados com o nome dpessoas
-const db = dbClient.db("d-pessoais");
+const db = client.db("d-pessoais");
 //cria uma collection com o nome crud
 const collection = db.collection('crud') 
 
@@ -64,7 +66,7 @@ app.route('/edit/:id')
     var surname = req.body.surname
 
     db.collection('crud')
-    .updateOne({_id: ObejectId(id)}, {
+    .updateOne({_id: ObjectId(id)}, {
         $set:{
             name: name,
             surname: surname
@@ -73,6 +75,18 @@ app.route('/edit/:id')
             if(err) return res.send(err)
             res.redirect('/show')
             console.log('db atualizado')
+        })
+    })
+
+    app.route('/delete/:id')
+    .get((req,res)=>{
+        var id = req.params.id
+
+        db.collection('crud').deleteOne({_id: ObjectId(id)},
+        (err, result) => {
+            if(err) return res.send(500, err)
+                console.log('deletou do banco')
+            res.redirect('/show')
         })
     })
     
